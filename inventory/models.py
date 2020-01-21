@@ -10,3 +10,8 @@ class MenuItem(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     image = models.TextField()
+    ingredients = models.ManyToManyField(Ingredient)
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=30)
+    amount = models.IntegerField()
