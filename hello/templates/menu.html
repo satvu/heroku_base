@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+
+        <h2>Menu</h2>
+        
+        
+        <ul>
+        
+        {% for item in menuItems %}
+            <li>{{ menuItems }}</li>
+        {% endfor %}
+        
+        </ul>
+        
+        </div>
+{% endblock %}
