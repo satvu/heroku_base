@@ -1,4 +1,5 @@
 from django.db import migrations, models
+from __future__ import unicode_literals
 
 class Migration(migrations.Migration):
 
