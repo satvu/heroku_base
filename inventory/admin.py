@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 class MenuCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name')
+    list_display = ('name',)
 
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name', 'amount')
