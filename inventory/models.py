@@ -9,9 +9,15 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=30)
     amount = models.IntegerField()
 
+    def __unicode__(self):
+        return self.name
+
 #Menu Category 
 class MenuCategory(models.Model):
     name = models.CharField(max_length = 30)
+
+    def __unicode__(self):
+        return self.name
 
 # Menu Items
 class MenuItem(models.Model):
@@ -24,3 +30,6 @@ class MenuItem(models.Model):
     description = models.TextField()
     image = models.TextField()
     ingredients = models.ManyToManyField(Ingredient)
+
+    def __unicode__(self):
+        return self.name
