@@ -2,7 +2,9 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = []
+    initial = True
+
+    dependencies = ['migrations']
 
     operations = [        
         migrations.CreateModel(
