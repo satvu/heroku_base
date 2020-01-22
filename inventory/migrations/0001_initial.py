@@ -4,7 +4,7 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = ['migrations']
+    dependencies = []
 
     operations = [        
         migrations.CreateModel(
