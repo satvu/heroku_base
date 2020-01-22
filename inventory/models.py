@@ -8,10 +8,18 @@ class Greeting(models.Model):
 class Ingredient(models.Model):
     name = models.CharField(max_length=30)
     amount = models.IntegerField()
-    
+
+#Menu Category 
+class MenuCategory(models.Model):
+    name = models.CharField(max_length = 30)
+
 # Menu Items
 class MenuItem(models.Model):
     name = models.CharField(max_length=30)
+    category = models.ForeignKey(
+        'MenuCategory',
+        on_delete=models.CASCADE,
+    )
     price = models.IntegerField()
     description = models.TextField()
     image = models.TextField()
