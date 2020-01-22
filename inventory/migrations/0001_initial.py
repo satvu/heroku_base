@@ -22,16 +22,17 @@ class Migration(migrations.Migration):
             ]
         ),
         migrations.CreateModel(
-            name='MenuItem',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='Menu Item')),
-            ],
-        ),
-        migrations.CreateModel(
             name='MenuCategory',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='Type of Menu Food')),
-                ('ingredients', models.ManyToManyField(to='Ingredient', verbose_name='list of ingredients'))
+            ],
+        ),
+        migrations.CreateModel(
+            name='MenuItem',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='Menu Item')),
+                ('ingredients', models.ManyToManyField(to='Ingredient', verbose_name='list of ingredients')),
+                ('category', models.ForeignKey(to='MenuCategory', verbose_name='category this belongs to'))
             ],
         )
     ]
