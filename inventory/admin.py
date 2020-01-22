@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-class MenuCategory(admin.ModelAdmin):
+class MenuCategoryAdmin(admin.ModelAdmin):
     list_display = ('name')
 
 class IngredientAdmin(admin.ModelAdmin):
