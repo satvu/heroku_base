@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='Menu Item')),
                 ('ingredients', models.ManyToManyField(to='Ingredient', verbose_name='list of ingredients')),
-                ('category', models.ForeignKey(to='MenuCategory', verbose_name='category this belongs to'))
+                ('category', models.ForeignKey(to='MenuCategory', verbose_name='category this belongs to', on_delete=models.CASCADE))
             ],
         )
     ]
