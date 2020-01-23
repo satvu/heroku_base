@@ -4,12 +4,13 @@
 {% block title %}Login{% endblock %}
 
 {%block content%}
+<div style="text-align: center;">
     <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
     </form>
-s
+
     <div>
             <p>
                 <a href="{% url 'signup'%}">Sign Up</a> 
@@ -18,5 +19,5 @@ s
                 <a href="{% url 'password_reset' %}">Reset Password</a> 
             </p>
     </div>
-
+</div>
 {% endblock %}
