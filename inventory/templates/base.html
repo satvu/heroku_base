@@ -51,7 +51,7 @@
         <a href="/"><span class="glyphicon glyphicon-home"></span> Home</a>
       </li>
       <li {% if request.path == "menu" %}class="active"{% endif %}>
-        <a href="/menu"><span class="glyphicon glyphicon-book"></span> Menu</a>
+        <a href="{% url 'menu'%}"><span class="glyphicon glyphicon-book"></span> Menu</a>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -59,7 +59,7 @@
         {% if user.is_authenticated %}
           <a href="{% url 'logout' %}"><span class="glyphicon glyphicon-user"></span> logout of {{user.username}} </a>
         {% else %}
-          <a href="accounts/login"><span class="glyphicon glyphicon-user"></span> User </a>
+          <a href="{% url 'login'}"><span class="glyphicon glyphicon-user"></span> User </a>
         {% endif %}
       </li>
     </ul>
