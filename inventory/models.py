@@ -30,6 +30,12 @@ class MenuItem(models.Model):
     description = models.TextField()
     image = models.TextField()
     ingredients = models.ManyToManyField(Ingredient)
+    
 
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    when = models.DateTimeField("date created", auto_now_add=True)
+    items = ManyToManyField(MenuItem)
+     
