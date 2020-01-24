@@ -12,7 +12,7 @@ class MenuItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('when')
+    list_display = ('when',)
 
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(MenuCategory, MenuCategoryAdmin)
