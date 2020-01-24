@@ -38,4 +38,7 @@ class MenuItem(models.Model):
 class Order(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
     items = models.ManyToManyField(MenuItem)
+
+    def __str__(self):
+        return self.when
      
