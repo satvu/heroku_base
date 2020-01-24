@@ -17,3 +17,4 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(MenuCategory, MenuCategoryAdmin)
 admin.site.register(MenuItem, MenuItemAdmin)
+admin.site.register(Order, OrderAdmin)
