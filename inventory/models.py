@@ -37,5 +37,5 @@ class MenuItem(models.Model):
 
 class Order(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
-    items = ManyToManyField(MenuItem)
+    items = models.ManyToManyField(MenuItem)
      
