@@ -1,19 +1,37 @@
 {% extends "base.html" %}
 {% load static %}
 
+<style>
+        body{
+            background-color: powderblue;
+        }
+
+        h1{
+            color: blue;
+        }
+
+        p{
+            color: red;
+        }
+</style>
+
 {% block content %}
 <div class="container">
 
 
-        <h2>Menu</h2>
-     <ul>
-        
-        {% for item in menu_items %}
-            <li>{{ item.name }} - {{ item.price}}</li>
-            <li><img src={{item.image}} width=500></li>
-        {% endfor %}
-        
-        </ul>
-        
-        </div>
+    <h2>Menu</h2>
+
+    {% for category, food_list in menu_dictionary.items %}
+
+        <h4>{{category}}</h4>
+
+        {% for food in food_list%}
+            <p><b>{{food.name}}: </b>{{food.price}}</p>
+            <img src="{{food.image}}" width=400/>
+        %}
+
+    {% endfor %}
+                
+
+</div>
 {% endblock %}
