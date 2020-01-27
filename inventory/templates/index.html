@@ -28,10 +28,11 @@
       <h3><span class="glyphicon glyphicon-link"></span>dias que esta abierto</h3>
       <p>
         misters estara abierto los viernes y dias festivos como:
-          <ul>
-            <li>dia de muertos</li>
-            <li>san valentin</li>
-          </ul>
+        <ul>
+        {% for holiday in holidays %}
+            <li>holiday.name</li>
+        {% endfor %}
+        </ul>
       </p>
     </div>
   </div> <!-- row -->

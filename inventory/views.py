@@ -5,8 +5,8 @@ from .models import Greeting, MenuItem
 
 # Create your views here.
 def index(request):
-    # return HttpResponse('Hello from Python!')
-    return render(request, "index.html")
+    holidays = Holiday.objects.all()
+    return render(request, "index.html", {"holidays": holidays})
 
 
 def db(request):
