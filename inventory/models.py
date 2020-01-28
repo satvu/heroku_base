@@ -36,6 +36,16 @@ class MenuItem(models.Model):
         return self.name
 
 class Order(models.Model):
-    when = models.DateTimeField("date created", auto_now_add=True)
+    when = models.DateTimeField(auto_now_add=True)
     items = models.ManyToManyField(MenuItem)
-     
+
+    def __str__(self):
+        return self.when
+# Holiday, days when the Container is closed
+class Holiday(models.Model):
+    name = models.CharField(max_length=30)
+    when = models.DateField()
+
+    def __str__(self):
+        return self.name
+
