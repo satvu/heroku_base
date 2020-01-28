@@ -10,5 +10,12 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser
     list_display = ['username', 'email', 'creditos', 'seccion']
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('creditos', 'seccion',)}),
+    )
+
+class SectionAdmin(admin.ModelAdmin):
+    list_display = ['condition']
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Section, SectionAdmin)
