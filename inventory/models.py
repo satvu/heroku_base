@@ -41,4 +41,11 @@ class Order(models.Model):
 
     def __str__(self):
         return self.when
-     
+# Holiday, days when the Container is closed
+class Holiday(models.Model):
+    name = models.CharField(max_length=30)
+    when = models.DateField()
+
+    def __str__(self):
+        return self.name
+
