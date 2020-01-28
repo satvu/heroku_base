@@ -12,9 +12,9 @@ class Section(models.Model):
 
     
 class CustomUser(AbstractUser):
-    usuario = models.CharField(max_length=20)
-    contraseña = models.CharField(max_length=20)
-    email = models.CharField(max_length=40) 
+    # usuario = models.CharField(max_length=20)
+    # contraseña = models.CharField(max_length=20)
+    # email = models.CharField(max_length=40) 
     seccion = models.ForeignKey(
         'Section', 
         on_delete=models.CASCADE, 
