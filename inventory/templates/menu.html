@@ -6,12 +6,11 @@
 
 
         <h2>Menu</h2>
+     <ul>
         
-        
-        <ul>
-        
-        {% for item in menuItems %}
-            <li>{{ menuItems }}</li>
+        {% for item in menu_items %}
+            <li>{{ item.name }} - {{ item.price}}</li>
+            <li><img src={{item.image}} width=500></li>
         {% endfor %}
         
         </ul>

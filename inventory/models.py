@@ -51,6 +51,22 @@ class MenuItem(models.Model):
     description = models.TextField()
     image = models.TextField()
     ingredients = models.ManyToManyField(Ingredient)
+    
 
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    when = models.DateTimeField(auto_now_add=True)
+    items = models.ManyToManyField(MenuItem)
+
+    def __str__(self):
+        return self.when
+# Holiday, days when the Container is closed
+class Holiday(models.Model):
+    name = models.CharField(max_length=30)
+    when = models.DateField()
+
+    def __str__(self):
+        return self.name
+
