@@ -3,20 +3,20 @@ from django.contrib.auth.models import AbstractUser
 
 class Section(models.Model):
     SECTION = (
-        ('maestro', _('maestro'))
-        ('secundaria', _('estudiante de secundaria'))
-        ('cch', _('estudiante de cch')))
+        ('maestro', 'maestro'),
+        ('secundaria', 'estudiante de secundaria'),
+        ('cch', 'estudiante de cch'))
 
-    condition = models.CharField(choices=SECTION)
+    condition = models.CharField(choices=SECTION, max_length=30)
 
 
     
 class CustomUser(AbstractUser):
     usuario = models.CharField(max_length=20)
-    contraseña = models.CharField()
-    email = models.CharField() 
+    contraseña = models.CharField(max_length=20)
+    email = models.CharField(max_length=40) 
     seccion = models.ForeignKey(
-        'Section' 
+        'Section', 
         on_delete=models.CASCADE, 
     )
     creditos = models.IntegerField()
