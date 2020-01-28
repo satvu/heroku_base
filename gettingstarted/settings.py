@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "inventory.apps.InventoryConfig",
     "accounts.apps.AccountsConfig",
+    'users.apps.UsersConfig', # new
+
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser' # new
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

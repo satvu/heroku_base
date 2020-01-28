@@ -1,4 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class Section(models.Model):
+    SECTION = (
+        ('maestro', _('maestro'))
+        ('secundaria', _('estudiante de secundaria'))
+        ('cch', _('estudiante de cch')))
+
+    condition = models.CharField(choices=SECTION)
+
+
+    
+class CustomUser(AbstractUser):
+    usuario = models.CharField(max_length=20)
+    contraseña = models.CharField()
+    email = models.CharField() 
+    seccion = models.ForeignKey(
+        'Section' 
+        on_delete=models.CASCADE, 
+    )
+    creditos = models.IntegerField()
 
 # Create your models here.
 class Greeting(models.Model):
