@@ -30,7 +30,7 @@
         misters estara abierto los viernes y dias festivos como:
         <ul>
         {% for holiday in holidays %}
-            <li>holiday.name</li>
+            <li>{{holiday.name}} - {{holiday.when}}</li>
         {% endfor %}
         </ul>
       </p>

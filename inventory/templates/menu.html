@@ -25,10 +25,10 @@
 
         <h4>{{category}}</h4>
 
-        {% for food in food_list%}
+        {% for food in food_list %}
             <p><b>{{food.name}}: </b>{{food.price}}</p>
             <img src="{{food.image}}" width=400/>
-        %}
+        {% endfor %}
 
     {% endfor %}
                 
