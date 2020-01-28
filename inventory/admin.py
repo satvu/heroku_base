@@ -12,8 +12,6 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ['email', 'username',]
 
-admin.site.register(CustomUser, CustomUserAdmin)
-
 class MenuCategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     
@@ -26,6 +24,7 @@ class MenuItemAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('when',)
 
+admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(MenuCategory, MenuCategoryAdmin)
 admin.site.register(MenuItem, MenuItemAdmin)
