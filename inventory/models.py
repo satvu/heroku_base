@@ -46,7 +46,7 @@ class Order(models.Model):
 # Holiday, days when the Container is closed
 class Holiday(models.Model):
     name = models.CharField(max_length=30)
-    when = models.DateTimeField()
+    when = models.DateField()
 
     def __str__(self):
         return self.name
