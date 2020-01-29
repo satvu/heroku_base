@@ -13,3 +13,11 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email')
+
+class EditProfileForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = (
+            'username',
+            'email'
+        )

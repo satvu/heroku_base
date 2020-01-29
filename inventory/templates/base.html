@@ -59,7 +59,7 @@
         {% if user.is_authenticated %}
           <a href="{% url 'view_profile' %}"><span class="glyphicon glyphicon-user"></span> Profile for {{user.username}}</a> 
         {% else %}
-          <a href="{% url 'login'%}"><span class="glyphicon glyphicon-user"></span> User </a>
+          <a href="{% url 'login'%}"><span class="glyphicon glyphicon-user"></span> login </a>
         {% endif %}
       </li>
     </ul>

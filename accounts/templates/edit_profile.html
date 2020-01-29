@@ -4,12 +4,15 @@
 <title>Profile</title>
 
 {% block content %}
-<div style="text-align: center;">
+<div style="margin-left: 15%;">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save Changes</button>
     </form>
+    <br>
+    <a href="{% url 'password_reset' %}">Reset Password</a> 
+    <p>To add credits or change your section, please visit the Container or email the staff at _____.</p>
 </div>
 
 {% endblock %}
