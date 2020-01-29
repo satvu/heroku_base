@@ -11,3 +11,12 @@ class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
+
+@login_required
+def view_profile(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except:
+        raise Http404
+
+    return render(request, "profile.html", {"user": user})
