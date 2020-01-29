@@ -38,12 +38,12 @@ class MenuItem(models.Model):
 
 # Cart holding orders, associated with a user
 class Cart(models.Model):
-    when = models.DateTimeField(auto_now_add = True)
-    order_total =  models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
     who_id = models.ForeignKey(
         'accounts.CustomUser',
         on_delete = models.CASCADE,
     )
+    when = models.DateTimeField(auto_now_add = True)
+    order_total =  models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -60,11 +60,17 @@ class Cart(models.Model):
 # It has one MenuItem, the number of those items being ordered, 
 # when it was ordered, and the cart it belongs to
 class Order(models.Model):
-    item = models.ForeignKey(
+    item_id = models.ForeignKey(
         'MenuItem', 
-        on_delete = models.CASCADE
+        on_delete = models.CASCADE,
+        default=1
         )
     quantity = models.IntegerField(default = 0)
+    cart_id = models.ForeignKey(
+            'Cart', 
+            on_delete = models.CASCADE,
+            default=1
+        )
 
     def __str__(self):
         return self.when
