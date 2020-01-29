@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "inventory.apps.InventoryConfig",
-    "accounts.apps.AccountsConfig",
+    "accounts.apps.AccountsConfig", # new
+
 ]
+
+AUTH_USER_MODEL = 'accounts.CustomUser' # new
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -101,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es-mx"
 
 TIME_ZONE = "America/Mexico_City"
 

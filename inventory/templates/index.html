@@ -6,32 +6,33 @@
 <div class="jumbotron text-center">
   <div class="container">
     <a href="/" class="lang-logo">
-      <img src="{% static 'lang-logo.png'%}">
+      <img src="{% static 'merici.jpg'%}">>
     </a>
-    <h1>"mister's"</h1>
-    <p>[Motto in Spanish]</p>
-    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-python"><span class="glyphicon glyphicon-flash"></span>Order Food</a>
+    <h1>Mister´s</h1>
+    <p>[La mejor comida en el Merici.]</p>
+    <a type="button" class="btn btn-lg btn-default" href="https://www.youtube.com/watch?v=thzm6oqK8O4"><span class="glyphicon glyphicon-flash"></span>ordena aqui</a>
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-info-sign"></span> What is the Container? [you guys can translate this to Spanish]</h3>
+      <h3><span class="glyphicon glyphicon-info-sign"></span>Misters es una exerincia única, con productos como:  </h3>
       <ul>
-        <li>The li tags in the code are bullet points</li>
-        <li>Bullet point two</li>
-        <li>bullet point three</li>
-        <li>Use these <a href="https://www.geeksforgeeks.org/most-commonly-used-tags-in-html/">common HTML tags</a> to edit the way this page looks!</li>
+        <li>waffles</li>
+        <li>panini</li>
+        <li>pizza</li>
+        <li>mira el desempeño de nuestros <a href="https://www.merici.edu.mx/">alumnos</a> !</li>
       </ul>
     </div>
     <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-link"></span>Schedule</h3>
+      <h3><span class="glyphicon glyphicon-link"></span>dias que esta abierto</h3>
       <p>
-        El contenedor abrirá el dia que Pame y bvochido sean novios. Hay 2 opciones: 
-          <ul>
-            <li>Holliday1</li>
-            <li>Holliday 2</li>
-          </ul>
+        misters estara abierto los viernes y dias festivos como:
+        <ul>
+        {% for holiday in holidays %}
+            <li>{{holiday.name}} - {{holiday.when}}</li>
+        {% endfor %}
+        </ul>
       </p>
     </div>
   </div> <!-- row -->
