@@ -47,14 +47,18 @@ class Cart(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            super(Model, self).save(*args, **kwargs)
+            super(Cart, self).save(*args, **kwargs)
         else:
             total = 0.0 # should be DecimalField not integer or float for prices
-        for item in Order.objects.filter(cart=self.id):
-            total += (item.quantity * item.product.price)
+            for item in Order.objects.filter(cart_id=self.id):
+                total += (item.quantity * item.item_id.price)
 
-        self.order_total = total # again this should be changed to DecimalField
-        super(Model, self).save(*args, **kwargs)
+            self.order_total = total # again this should be changed to DecimalField
+            super(Cart, self).save(*args, **kwargs)
+    
+    def __str__(self):
+        return str(self.who_id) + ' cart'
+
 
 # An order made by a user for food
 # It has one MenuItem, the number of those items being ordered, 
@@ -73,7 +77,7 @@ class Order(models.Model):
         )
 
     def __str__(self):
-        return self.when
+        return self.item_id.name
         
 # Holiday, days when the Container is closed
 class Holiday(models.Model):
