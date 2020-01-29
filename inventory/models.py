@@ -40,14 +40,21 @@ class MenuItem(models.Model):
 class Order(models.Model):
     when = models.DateTimeField(auto_now_add=True)
     items = models.ManyToManyField(MenuItem)
-    who = models.ForeignKey(
-        'CustomUser',
+    who_id = models.ForeignKey(
+        'accounts.CustomUser',
         on_delete = models.CASCADE,
     )
-    price = ModelName.objects.aggregate(Sum('items.price'))
+    price = models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
 
     def __str__(self):
         return self.when
+
+    def save(self, *args, **kwargs):
+        price = 0.0 # should be DecimalField not integer or float for prices
+        for item in items:
+            total += item.price
+        self.price = price # again this should be changed to DecimalField
+        super(Model, self).save(*args, **kwargs)
         
 # Holiday, days when the Container is closed
 class Holiday(models.Model):
