@@ -5,7 +5,7 @@ class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
 
 # Ingredients - have a name and count of it in the inventory
-class Ingredient(models.Model):
+class Ingredientes(models.Model):
     name = models.CharField(max_length=30)
     amount = models.IntegerField()
 
@@ -29,7 +29,7 @@ class MenuItem(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     image = models.TextField()
-    ingredients = models.ManyToManyField(Ingredient)
+    ingredientes = models.ManyToManyField(Ingredientes)
     
 
     def __str__(self):
