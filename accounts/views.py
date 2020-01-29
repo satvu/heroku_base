@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
@@ -12,10 +13,9 @@ class SignUp(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
 
-@login_required
-def view_profile(request, username):
+def view_profile(request):
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(username=request.user.username)
     except:
         raise Http404
 

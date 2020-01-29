@@ -6,11 +6,11 @@
 {% block content %}
 <div style="text-align: center;">
     <h1>Profile</h1>
-    <p>Username: {{ user.username }}</p>
+    <p>Username: {{ user }}</p>
     <p>Email: {{ user.email }}</p>
     <p>Section: {{user.seccion}}</p>
     <p>Credits: {{ user.creditos }}</p>
-    <a href="{% url 'logout' %}">logout of {{user.username}} </a>
+    <a href="{% url 'logout' %}">logout of {{user}} </a>
 </div>
 
 {% endblock %}
