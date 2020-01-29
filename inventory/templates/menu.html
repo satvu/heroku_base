@@ -5,16 +5,21 @@
 <div class="container">
 
 
-        <h2>Menu</h2>
+    <h2>Menu</h2>
         
-        
-        <ul>
-        
-        {% for item in menuItems %}
-            <li>{{ menuItems }}</li>
-        {% endfor %}
-        
-        </ul>
-        
-        </div>
+    {% for category, food_list in menu_dictionary.items %}
+       
+        <h4>{{category}}</h4>
+      
+        {% for for in food_list%}
+            <p><b>{food.name}}: </b>{{food.price}}</p>
+            <img src="{{food.image}}" width=400 />
+         {% endfor %}
+
+    {% endfor %}
+
+
+</div>
+
 {% endblock %}
+

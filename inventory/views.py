@@ -19,6 +19,11 @@ def db(request):
     return render(request, "db.html", {"greetings": greetings})
 
 def menu(request):
-    menuItems = MenuItem.objects.all()
-
-    return render(request, "menu.html", {"menu_items": menuItems})
+    menuCategories = MenuCategory.objects.all()
+    menu_dictionary = dict()
+  
+    for category in menuCategories:
+        menuItems: MenuItem.objects.filter( category=F( category.name))
+        menu_dictionary[category.name] = list(menuItems)
+        
+    return render( request, "menu.html", {"menu_dictionary": menu_dictionary})
