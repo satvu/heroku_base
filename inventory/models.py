@@ -36,25 +36,38 @@ class MenuItem(models.Model):
     def __str__(self):
         return self.name
 
-# An order made by a user for food
-class Order(models.Model):
-    when = models.DateTimeField(auto_now_add=True)
-    items = models.ManyToManyField(MenuItem)
+# Cart holding orders, associated with a user
+class Cart(models.Model):
+    when = models.DateTimeField(auto_now_add = True)
+    order_total =  models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
     who_id = models.ForeignKey(
         'accounts.CustomUser',
         on_delete = models.CASCADE,
     )
-    price = models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            super(Model, self).save(*args, **kwargs)
+        else:
+            total = 0.0 # should be DecimalField not integer or float for prices
+        for item in Order.objects.filter(cart=self.id):
+            total += (item.quantity * item.product.price)
+
+        self.order_total = total # again this should be changed to DecimalField
+        super(Model, self).save(*args, **kwargs)
+
+# An order made by a user for food
+# It has one MenuItem, the number of those items being ordered, 
+# when it was ordered, and the cart it belongs to
+class Order(models.Model):
+    item = models.ForeignKey(
+        'MenuItem', 
+        on_delete = models.CASCADE
+        )
+    quantity = models.IntegerField(default = 0)
 
     def __str__(self):
         return self.when
-
-    def save(self, *args, **kwargs):
-        price = 0.0 # should be DecimalField not integer or float for prices
-        for item in items:
-            total += item.price
-        self.price = price # again this should be changed to DecimalField
-        super(Model, self).save(*args, **kwargs)
         
 # Holiday, days when the Container is closed
 class Holiday(models.Model):
