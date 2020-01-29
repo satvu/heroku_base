@@ -21,9 +21,9 @@ def db(request):
 def menu(request):
     menuCategories = MenuCategory.objects.all()
     menu_dictionary = dict()
-
+  
     for category in menuCategories:
-        menuItems = MenuItem.objects.filter(category=F(category.name))
+        menuItems: MenuItem.objects.filter( category=F( category.name))
         menu_dictionary[category.name] = list(menuItems)
-
-    return render(request, "menu.html", {"menu_dictionary": menu_dictionary})
+        
+    return render( request, "menu.html", {"menu_dictionary": menu_dictionary})
