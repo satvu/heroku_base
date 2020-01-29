@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .models import Greeting, MenuItem
+from .models import *
 
 # Create your views here.
 def index(request):
-    # return HttpResponse('Hello from Python!')
-    return render(request, "index.html")
+    holidays = Holiday.objects.all()
+    return render(request, "index.html", {"holidays": holidays})
 
 
 def db(request):
@@ -19,10 +19,16 @@ def db(request):
     return render(request, "db.html", {"greetings": greetings})
 
 def menu(request):
-    menuItems = MenuItem.objects.all()
+    menuCategories = MenuCategory.objects.all()
+    menu_dictionary = dict()
 
-    return render(request, "menu.html", {"menu_items": menuItems})
+    for category in menuCategories:
+        menuItems = MenuItem.objects.filter(category=F(category.name))
+        menu_dictionary[category.name] = list(menuItems)
+
+    return render(request, "menu.html", {"menu_dictionary": menu_dictionary})
+
 # Create your views here.
 def index(request):
     holidays = Holidays.objects.all()
-    return render(recuest, "index.html")
+    return render(recuest, "index.html", {"holidays": holidays})
