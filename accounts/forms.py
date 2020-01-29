@@ -15,6 +15,10 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('username', 'email')
 
 class EditProfileForm(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+       super(EditProfileForm, self).__init__(*args, **kwargs)
+       del self.fields['password']
+       
     class Meta:
         model = CustomUser
         fields = (
