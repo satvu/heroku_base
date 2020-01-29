@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "accounts.apps.AccountsConfig", # new
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,11 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "inventory.apps.InventoryConfig",
-    "accounts.apps.AccountsConfig", # new
-
 ]
-
-AUTH_USER_MODEL = 'accounts.CustomUser' # new
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -120,7 +117,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = "/static/"
-
+AUTH_USER_MODEL = 'accounts.CustomUser' # new
 django_heroku.settings(locals())
 
 LOGIN_REDIRECT_URL = '/'
