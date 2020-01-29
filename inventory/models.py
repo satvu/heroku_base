@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import CustomUser
 
 # Create your models here.
 class Greeting(models.Model):
@@ -39,6 +40,11 @@ class MenuItem(models.Model):
 class Order(models.Model):
     when = models.DateTimeField(auto_now_add=True)
     items = models.ManyToManyField(MenuItem)
+    who = models.ForeignKey(
+        'CustomUser',
+        on_delete = models.CASCADE,
+    )
+    price = ModelName.objects.aggregate(Sum('items.price'))
 
     def __str__(self):
         return self.when
