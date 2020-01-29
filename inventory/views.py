@@ -22,3 +22,7 @@ def menu(request):
     menuItems = MenuItem.objects.all()
 
     return render(request, "menu.html", {"menu_items": menuItems})
+# Create your views here.
+def index(request):
+    holidays = Holidays.objects.all()
+    return render(recuest, "index.html")

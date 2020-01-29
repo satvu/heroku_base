@@ -14,6 +14,10 @@ class MenuItemAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('when',)
 
+class HolidayAdmin(admin.ModelAdmin):
+    list_display = ('name','when')
+
+admin.site.register(Holiday, HolidayAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(MenuCategory, MenuCategoryAdmin)
 admin.site.register(MenuItem, MenuItemAdmin)
