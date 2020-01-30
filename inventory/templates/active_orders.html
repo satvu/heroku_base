@@ -14,9 +14,11 @@
                     {% endfor %}
                 </ul>
                 <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Delete</button>
+                    {% csrf_token %}
+                    <div hidden=true>
+                        <input type="text" name="user" value="{{cart.who_id}}"/></br>
+                    </div>
+                    <input type="submit" value="Send" /> <input type="reset">s
                 </form>
             </p>
         {% endfor %}
