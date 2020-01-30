@@ -58,7 +58,7 @@ def view_cart(request):
     
     else:
         user = User.objects.get(username=request.user.username)
-        cart = Cart.objects.get(who_id = user)
-        orders = list(Order.objects.filter(cart_id = cart.id))
+        cart = Cart.objects.get(who_id = user.id)
+        orders = list(Orden.objects.filter(cart_id = cart.id))
 
         return render(request, 'view_cart.html', {'user': user, 'cart': cart, 'orders': orders})
