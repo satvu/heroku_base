@@ -13,7 +13,11 @@
                     <li>{{order.item_id.name}}: {{order.quantity}}</li>
                     {% endfor %}
                 </ul>
-                <button type="submit">Finished Order</button>
+                <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Delete</button>
+                </form>
             </p>
         {% endfor %}
     {% else %}

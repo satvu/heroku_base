@@ -25,7 +25,7 @@ class MenuItem(models.Model):
     name = models.CharField(max_length=30)
     category = models.ForeignKey(
         'MenuCategory',
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
     )
     price = models.IntegerField()
     description = models.TextField()
@@ -68,13 +68,13 @@ class Cart(models.Model):
 class Order(models.Model):
     item_id = models.ForeignKey(
         'MenuItem', 
-        on_delete = models.CASCADE,
+        on_delete = models.DO_NOTHING,
         default=1
         )
     quantity = models.IntegerField(default = 0)
     cart_id = models.ForeignKey(
             'Cart', 
-            on_delete = models.CASCADE,
+            on_delete = models.DO_NOTHING,
             default=1
         )
 

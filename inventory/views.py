@@ -32,15 +32,18 @@ def active_orders(request):
     if user.is_staff:
         if request.method == 'POST':
             carts = Cart.objects.filter(active = True)
-            # ordered_by = 
-            send_mail(
-                '[The Container] Your order is ready!',
-                'Please come pick up your order as soon as possible.',
-                user.email,
-                [],
-                fail_silently=False,
-            )
-            return render(request, 'active_orders.html', {"carts": carts, })
+            form = CartDeleteForm(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                # ordered_by = 
+                send_mail(
+                    '[The Container] Your order is ready!',
+                    'Please come pick up your order as soon as possible.',
+                    user.email,
+                    [],
+                    fail_silently=False,
+                )
+                return render(request, 'active_orders.html', {"carts": carts, })
 
         else:
             active_carts = Cart.objects.filter(active = True)
