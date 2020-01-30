@@ -3,12 +3,6 @@ from django.http import HttpResponse
 
 from .models import *
 
-# Create your views here.
-def index(request):
-    holidays = Holiday.objects.all()
-    return render(request, "index.html", {"holidays": holidays})
-
-
 def db(request):
 
     greeting = Greeting()
@@ -30,5 +24,5 @@ def menu(request):
 
 # Create your views here.
 def index(request):
-    holidays = Holidays.objects.all()
-    return render(recuest, "index.html", {"holidays": holidays})
+    holidays = Holiday.objects.all()
+    return render(request, "index.html", {"holidays": holidays})
