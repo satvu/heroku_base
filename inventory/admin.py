@@ -22,8 +22,8 @@ class CartAdmin(admin.ModelAdmin):
     list_display = ('who_id', 'order_total', 'when')
 
 admin.site.register(Cart, CartAdmin)
-admin.site.register(Holiday, HolidayAdmin)
-admin.site.register(Ingredient, IngredientAdmin)
-admin.site.register(MenuCategory, MenuCategoryAdmin)
-admin.site.register(MenuItem, MenuItemAdmin)
-admin.site.register(Order, OrderAdmin)
+admin.site.register(DiasLibre, HolidayAdmin)
+admin.site.register(Ingrediente, IngredientAdmin)
+admin.site.register(CategoriasDelMenu, MenuCategoryAdmin)
+admin.site.register(ElementosDelMenu, MenuItemAdmin)
+admin.site.register(Orden, OrderAdmin)

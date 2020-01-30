@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import get_user_model
 from .forms import CustomUserCreationForm, EditProfileForm
-from inventory.models import Cart, Order
+from inventory.models import Cart, Orden
 User = get_user_model()
 
 # TODO: use custom user signup instead once finished with the custom user

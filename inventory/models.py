@@ -6,7 +6,7 @@ class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
 
 # Ingredients - have a name and count of it in the inventory
-class Ingredient(models.Model):
+class Ingrediente(models.Model):
     name = models.CharField(max_length=30)
     amount = models.IntegerField()
 
@@ -14,23 +14,23 @@ class Ingredient(models.Model):
         return self.name
 
 #Menu Category 
-class MenuCategory(models.Model):
+class CategoriasDelMenu(models.Model):
     name = models.CharField(max_length = 30)
 
     def __str__(self):
         return self.name
 
 # Menu Items
-class MenuItem(models.Model):
+class ElementosDelMenu(models.Model):
     name = models.CharField(max_length=30)
     category = models.ForeignKey(
-        'MenuCategory',
+        'CategoriasDelMenu',
         on_delete=models.DO_NOTHING,
     )
     price = models.IntegerField()
     description = models.TextField()
     image = models.TextField()
-    ingredients = models.ManyToManyField(Ingredient)
+    ingredients = models.ManyToManyField(Ingrediente)
     
 
     def __str__(self):
@@ -40,7 +40,7 @@ class MenuItem(models.Model):
 class Cart(models.Model):
     who_id = models.ForeignKey(
         'accounts.CustomUser',
-        on_delete = models.CASCADE,
+        on_delete = models.DO_NOTHING
     )
     when = models.DateTimeField(auto_now_add = True)
     order_total =  models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
@@ -52,7 +52,7 @@ class Cart(models.Model):
             super(Cart, self).save(*args, **kwargs)
         else:
             total = 0.0 # should be DecimalField not integer or float for prices
-            for item in Order.objects.filter(cart_id=self.id):
+            for item in Orden.objects.filter(cart_id=self.id):
                 total += (item.quantity * item.item_id.price)
 
             self.order_total = total # again this should be changed to DecimalField
@@ -65,9 +65,9 @@ class Cart(models.Model):
 # An order made by a user for food
 # It has one MenuItem, the number of those items being ordered, 
 # when it was ordered, and the cart it belongs to
-class Order(models.Model):
+class Orden(models.Model):
     item_id = models.ForeignKey(
-        'MenuItem', 
+        'ElementosDelMenu', 
         on_delete = models.DO_NOTHING,
         default=1
         )
@@ -82,7 +82,7 @@ class Order(models.Model):
         return self.item_id.name
         
 # Holiday, days when the Container is closed
-class Holiday(models.Model):
+class DiasLibre(models.Model):
     name = models.CharField(max_length=30)
     when = models.DateField()
 

@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 
 # Create your views here.
 def index(request):
-    holidays = Holiday.objects.all()
+    holidays = DiasLibre.objects.all()
     return render(request, "index.html", {"holidays": holidays})
 
 def db(request):
@@ -18,9 +18,9 @@ def db(request):
     return render(request, "db.html", {"greetings": greetings})
 
 def menu(request):
-    menuCategories = MenuCategory.objects.all()
+    menuCategories = CategoriasDelMenu.objects.all()
     menu_dictionary = dict()
-
+  
     for category in menuCategories:
         menuItems = MenuItem.objects.filter(category=category)
         menu_dictionary[category.name] = list(menuItems)
@@ -56,3 +56,7 @@ def active_orders(request):
     else:
         raise Http404("You must be a staff member to access this page")
 
+        menuItems: MenuItem.objects.filter( category=F( category.name))
+        menu_dictionary[category.name] = list(menuItems)
+        
+        return render( request, "menu.html", {"menu_dictionary": menu_dictionary})
