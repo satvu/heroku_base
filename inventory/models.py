@@ -5,7 +5,7 @@ class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
 
 # Ingredients - have a name and count of it in the inventory
-class Ingredientes(models.Model):
+class Ingrediente(models.Model):
     name = models.CharField(max_length=30)
     amount = models.IntegerField()
 
@@ -13,38 +13,38 @@ class Ingredientes(models.Model):
         return self.name
 
 #Menu Category 
-class MenuCategory(models.Model):
+class CategoriasDelMenu(models.Model):
     name = models.CharField(max_length = 30)
 
     def __str__(self):
         return self.name
 
 # Menu Items
-class MenuItem(models.Model):
+class ElementosDelMenu(models.Model):
     name = models.CharField(max_length=30)
     category = models.ForeignKey(
-        'MenuCategory',
+        CategoriasDelMenu,
         on_delete=models.CASCADE,
     )
     price = models.IntegerField()
     description = models.TextField()
     image = models.TextField()
-    ingredientes = models.ManyToManyField(Ingredientes)
+    ingredients = models.ManyToManyField(Ingrediente)
     
 
     def __str__(self):
         return self.name
 
 # An order made by a user for food
-class Order(models.Model):
+class Orden(models.Model):
     when = models.DateTimeField(auto_now_add=True)
-    items = models.ManyToManyField(MenuItem)
+    items = models.ManyToManyField(ElementosDelMenu)
 
     def __str__(self):
         return self.when
         
 # Holiday, days when the Container is closed
-class Holiday(models.Model):
+class DiasLibre(models.Model):
     name = models.CharField(max_length=30)
     when = models.DateField()
 
