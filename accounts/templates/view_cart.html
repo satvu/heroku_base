@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>Cart</title>
+
+{% block content %}
+<div style="text-align: center;">
+    <h1>{{user.username}}'s Cart</h1>
+    {% for order in orders%}
+        <p>{{order.item_id.name}}: {{order.quantity}}</p>
+    {% endfor %}
+    <p><b>Total Cost:</b> {{cart.order_total}} </p>
+</div>
+
+{% endblock %}

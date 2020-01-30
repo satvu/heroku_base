@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import get_user_model
 from .forms import CustomUserCreationForm, EditProfileForm
+from inventory.models import Cart, Order
 User = get_user_model()
 
 # TODO: use custom user signup instead once finished with the custom user
@@ -35,3 +36,10 @@ def edit_profile(request):
         form = EditProfileForm(instance=request.user)
         args = {'form': form}
         return render(request, 'edit_profile.html', args)
+
+def view_cart(request):
+    user = User.objects.get(username=request.user.username)
+    cart = Cart.objects.get(who_id = user)
+    orders = list(Order.objects.filter(cart_id = cart.id))
+
+    return render(request, 'view_cart.html', {'user': user, 'cart': cart, 'orders': orders})

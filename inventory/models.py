@@ -44,6 +44,8 @@ class Cart(models.Model):
     )
     when = models.DateTimeField(auto_now_add = True)
     order_total =  models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
+    active = models.BooleanField(default = False)
+
 
     def save(self, *args, **kwargs):
         if not self.id:
