@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>Cart</title>
+
+{% block content %}
+<div>
+    {% if user.is_staff %}
+        {% for cart, orders in cart_orders.items %}
+            <p>
+                <ul>
+                    {% for order in orders}
+                    <li>{{order.item_id.name}}: {{order.quantity}}</li>
+                    {% endfor %}
+                </ul>
+                <button type="submit">Finished Order</button>
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>You must be a staff member of the Container to access this page.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
