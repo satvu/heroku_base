@@ -6,10 +6,19 @@
 {% block content %}
 <div style="text-align: center;">
     <h1>{{user.username}}'s Cart</h1>
+    <a href="{% url 'menu'%}">back to menu</a>
     {% for order in orders%}
         <p>{{order.item_id.name}}: {{order.quantity}}</p>
     {% endfor %}
     <p><b>Total Cost:</b> {{cart.order_total}} </p>
+    <p>(Your available credits are: {{user.creditos}} pesos)</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Order</button>
+    </form>
+    
 </div>
 
 {% endblock %}

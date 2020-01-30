@@ -38,8 +38,27 @@ def edit_profile(request):
         return render(request, 'edit_profile.html', args)
 
 def view_cart(request):
-    user = User.objects.get(username=request.user.username)
-    cart = Cart.objects.get(who_id = user)
-    orders = list(Order.objects.filter(cart_id = cart.id))
+    if request.method == 'POST':
+        user = User.objects.get(username=request.user.username)
+        cart = Cart.objects.get(who_id = user)
+        
+        if user.creditos != None and user.creditos > cart.order_total:
+            cart.active = True 
+            cart.save()
 
-    return render(request, 'view_cart.html', {'user': user, 'cart': cart, 'orders': orders})
+            active_carts = Cart.objects.filter(active = True)
+            orders_ahead = len(active_carts)
+            time_estimate = orders_ahead * 3
+
+            return render(request, 'order_submitted.html', {'time_estimate': time_estimate, 'user': user,
+                                                                'cart': cart,
+                                                                'orders_ahead': orders_ahead})
+        else:
+            raise Http404("You do not have enough credits to order this. Please order in person at the Container")
+    
+    else:
+        user = User.objects.get(username=request.user.username)
+        cart = Cart.objects.get(who_id = user)
+        orders = list(Order.objects.filter(cart_id = cart.id))
+
+        return render(request, 'view_cart.html', {'user': user, 'cart': cart, 'orders': orders})
