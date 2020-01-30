@@ -23,7 +23,7 @@ def menu(request):
     menu_dictionary = dict()
   
     for category in menuCategories:
-        menuItems: MenuItem.objects.filter( category=F( category.name))
+        menuItems = ElementosDelMenu.objects.filter(category= category)
         menu_dictionary[category.name] = list(menuItems)
         
     return render( request, "menu.html", {"menu_dictionary": menu_dictionary})
