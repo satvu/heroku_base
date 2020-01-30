@@ -32,7 +32,7 @@ def active_orders(request):
     if user.is_staff:
         if request.method == 'POST':
             carts = Cart.objects.filter(active = True)
-            ordered_by = 
+            # ordered_by = 
             send_mail(
                 '[The Container] Your order is ready!',
                 'Please come pick up your order as soon as possible.',
