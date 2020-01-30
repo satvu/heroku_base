@@ -18,8 +18,8 @@ class OrderAdmin(admin.ModelAdmin):
 class HolidayAdmin(admin.ModelAdmin):
     list_display = ('name', 'when')
 
-admin.site.register(Holiday, HolidayAdmin)
-admin.site.register(Ingredient, IngredientAdmin)
-admin.site.register(MenuCategory, MenuCategoryAdmin)
-admin.site.register(MenuItem, MenuItemAdmin)
-admin.site.register(Order, OrderAdmin)
+admin.site.register(DiasLibre, HolidayAdmin)
+admin.site.register(Ingrediente, IngredientAdmin)
+admin.site.register(CategoriasDelMenu, MenuCategoryAdmin)
+admin.site.register(ElementosDelMenu, MenuItemAdmin)
+admin.site.register(Orden, OrderAdmin)
