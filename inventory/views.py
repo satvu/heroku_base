@@ -89,13 +89,13 @@ def active_orders(request):
             del_cart.save()
 
             # Send an email to the user that their food is ready
-            send_mail(
-                '[MISTER\'S] YOUR FOOD IS READY',
-                'Please pick up your order as soon as possible.',
-                user.email,
-                [user_customer.email],
-                fail_silently=False,
-            )
+            # send_mail(
+            #     '[MISTER\'S] YOUR FOOD IS READY',
+            #     'Please pick up your order as soon as possible.',
+            #     user.email,
+            #     [user_customer.email],
+            #     fail_silently=False,
+            # )
             
             # return all the carts again
             active_carts = Cart.objects.filter(active = True).order_by('-when')
