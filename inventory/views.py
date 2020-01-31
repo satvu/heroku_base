@@ -19,14 +19,46 @@ def db(request):
     return render(request, "db.html", {"greetings": greetings})
 
 def menu(request):
+    alert_flag = False
+    # try:
+    item = 'nada'
+    if request.method == 'POST':
+        item = str(request.POST.get('item'))
+        number = int(request.POST.get('number'))
+        # get the current cart of this person 
+        cart = Cart.objects.get(who_id = request.user)
+
+        # check if this is an order
+        orders_in_cart = list(Orden.objects.filter(cart_id = cart.id))
+        order_exists = False
+        if len(orders_in_cart) > 0:
+            # edit that order if so
+            for order in orders_in_cart:
+                if order.item_id.name == item:
+                    order.quantity = number 
+                    order.save()
+                    order_exists = True
+
+        # else create a new order for the cart 
+        if not order_exists:
+            order_item = ElementosDelMenu.objects.get(name = item)
+            new_order = Orden(item_id = order_item, quantity = number, cart_id = cart)
+            new_order.save()
+
+        alert_flag = True
+        cart.save()
+
     menuCategories = CategoriasDelMenu.objects.all()
     menu_dictionary = dict()
-  
+
     for category in menuCategories:
         menuItems = ElementosDelMenu.objects.filter(category=category)
         menu_dictionary[category.name] = list(menuItems)
 
-    return render(request, "menu.html", {"menu_dictionary": menu_dictionary})
+    return render(request, "menu.html", {"menu_dictionary": menu_dictionary, "alert_flag": alert_flag, "add-item": item })
+
+    # except:
+    #     raise Http404("ERROR: INVALID USER OR ACTION")
 
 def active_orders(request):
     user = CustomUser.objects.get(username=request.user.username)

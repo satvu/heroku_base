@@ -18,7 +18,7 @@
                 <form method="post">
                     {% csrf_token %}
                     <div hidden=true>
-                        <input type="text" name="user" value="{{cart}}"/></br>
+                        <input type="text" id = "user" name="user" value="{{cart}}"/></br>
                     </div>
                     <input type="submit" value="Order Finished" /> 
                 </form>

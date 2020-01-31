@@ -31,7 +31,7 @@ class ElementosDelMenu(models.Model):
     description = models.TextField()
     image = models.TextField()
     ingredients = models.ManyToManyField(Ingrediente)
-    
+    time_to_make = models.IntegerField(default = 0)
 
     def __str__(self):
         return self.name
@@ -42,8 +42,9 @@ class Cart(models.Model):
         'accounts.CustomUser',
         on_delete = models.CASCADE
     )
-    when = models.DateTimeField(auto_now_add = True)
+    when = models.DateTimeField(auto_now= True)
     order_total =  models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
+    time_total = models.IntegerField(default = 0)
     active = models.BooleanField(default = False)
 
 
@@ -52,10 +53,13 @@ class Cart(models.Model):
             super(Cart, self).save(*args, **kwargs)
         else:
             total = 0.0 # should be DecimalField not integer or float for prices
+            time = 0
             for item in Orden.objects.filter(cart_id=self.id):
                 total += (item.quantity * item.item_id.price)
+                time += (item.quantity * item.time_to_make)
 
             self.order_total = total # again this should be changed to DecimalField
+            self.time_total = time
             super(Cart, self).save(*args, **kwargs)
     
     def __str__(self):
@@ -68,18 +72,25 @@ class Cart(models.Model):
 class Orden(models.Model):
     item_id = models.ForeignKey(
         'ElementosDelMenu', 
-        on_delete = models.DO_NOTHING,
-        default=1
+        on_delete = models.CASCADE
         )
     quantity = models.IntegerField(default = 0)
     cart_id = models.ForeignKey(
             'Cart', 
-            on_delete = models.DO_NOTHING,
-            default=1
-        )
+            on_delete = models.CASCADE,
+    )
+    time_to_make = models.IntegerField(default = 0)
 
     def __str__(self):
         return self.item_id.name
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            super(Orden, self).save(*args, **kwargs)
+        else:
+            self.time_to_make = self.item_id.price * self.quantity
+            super(Orden, self).save(*args, **kwargs)
+
         
 # Holiday, days when the Container is closed
 class DiasLibre(models.Model):

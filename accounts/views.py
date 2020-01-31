@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from datetime import datetime
 from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -7,6 +6,8 @@ from django.views import generic
 from django.contrib.auth import get_user_model
 from .forms import CustomUserCreationForm, EditProfileForm
 from inventory.models import Cart, Orden
+from datetime import datetime, timedelta
+
 User = get_user_model()
 
 # TODO: use custom user signup instead once finished with the custom user
@@ -45,12 +46,19 @@ def view_cart(request):
         
         if user.creditos != None and user.creditos > cart.order_total:
             cart.active = True 
-            cart.when = datetime.now()
             cart.save()
-
+            # get the current active carts/order
             active_carts = Cart.objects.filter(active = True)
-            orders_ahead = len(active_carts)
-            time_estimate = orders_ahead * 3
+
+            # get how old this cart is
+            time_threshold = datetime.now() - cart.when
+
+            # see how many carts are older (time changed ago is greater than time_threshold)
+            orders_ahead = Cart.objects.filter(when__gt= time_threshold)
+            # get a time estimate by adding cart time estimates
+            time_estimate = 0 
+            for cart in orders_ahead:
+                time_estimate += cart.time_total
 
             return render(request, 'order_submitted.html', {'time_estimate': time_estimate, 'user': user,
                                                                 'cart': cart,
@@ -60,7 +68,13 @@ def view_cart(request):
     
     else:
         user = User.objects.get(username=request.user.username)
-        cart = Cart.objects.get_or_create(who_id = user.id)
-        orders = list(Orden.objects.filter(cart_id = cart.id))
+        try:
+            cart = Cart.objects.get(who_id = user.id)
+            orders = list(Orden.objects.filter(cart_id = cart.id))
 
-        return render(request, 'view_cart.html', {'user': user, 'cart': cart, 'orders': orders})
+            return render(request, 'view_cart.html', {'user': user, 'cart': cart, 'orders': orders})
+
+        except: 
+            cart = Cart(who_id = user)
+            cart.save()
+            return render(request, 'view_cart.html', {'user': user, 'cart': cart})
