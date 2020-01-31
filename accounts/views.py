@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from datetime import datetime
 from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -44,6 +45,7 @@ def view_cart(request):
         
         if user.creditos != None and user.creditos > cart.order_total:
             cart.active = True 
+            cart.when = datetime.now()
             cart.save()
 
             active_carts = Cart.objects.filter(active = True)
@@ -58,7 +60,7 @@ def view_cart(request):
     
     else:
         user = User.objects.get(username=request.user.username)
-        cart = Cart.objects.get(who_id = user.id)
+        cart = Cart.objects.get_or_create(who_id = user.id)
         orders = list(Orden.objects.filter(cart_id = cart.id))
 
         return render(request, 'view_cart.html', {'user': user, 'cart': cart, 'orders': orders})

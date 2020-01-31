@@ -4,22 +4,25 @@
 <title>Cart</title>
 
 {% block content %}
-<div>
+<div style="margin-left: 10%; margin-right: 10%;">
     {% if user.is_staff %}
-        {% for cart, orders in cart_orders.items %}
+        {% for cart, orders in carts.items %}
             <p>
+                <b>{{cart}}'s order </b> <br>
+                Ordered at {{orders.1}}
                 <ul>
-                    {% for order in orders}
+                    {% for order in orders.0 %}
                     <li>{{order.item_id.name}}: {{order.quantity}}</li>
                     {% endfor %}
                 </ul>
                 <form method="post">
                     {% csrf_token %}
                     <div hidden=true>
-                        <input type="text" name="user" value="{{cart.who_id}}"/></br>
+                        <input type="text" name="user" value="{{cart}}"/></br>
                     </div>
-                    <input type="submit" value="Send" /> <input type="reset">s
+                    <input type="submit" value="Order Finished" /> 
                 </form>
+                <hr>
             </p>
         {% endfor %}
     {% else %}
