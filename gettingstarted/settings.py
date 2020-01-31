@@ -122,5 +122,3 @@ django_heroku.settings(locals())
 
 LOGIN_REDIRECT_URL = '/accounts/cart'
 LOGOUT_REDIRECT_URL = '/'
-
-EMAIL_HOST
