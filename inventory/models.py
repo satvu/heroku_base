@@ -90,7 +90,6 @@ class Orden(models.Model):
         else:
             self.time_to_make = self.item_id.price * self.quantity
             super(Orden, self).save(*args, **kwargs)
-
         
 # Holiday, days when the Container is closed
 class DiasLibre(models.Model):

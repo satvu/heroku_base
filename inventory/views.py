@@ -76,6 +76,8 @@ def active_orders(request):
 
             del_cart.save()
 
+            # Send an email to the user that their food is ready
+
             # return all the carts again
             active_carts = Cart.objects.filter(active = True).order_by('-when')
             cart_orders = dict()

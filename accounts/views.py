@@ -43,7 +43,27 @@ def view_cart(request):
     if request.method == 'POST' and "submit_order" in request.POST:
         user = User.objects.get(username=request.user.username)
         cart = Cart.objects.get(who_id = user)
+
+        # Check that there are enough ingredients
+        submitted_orders = Orden.objects.filter(cart_id = cart.id)
+        ingredients = Ingrediente.objects.all()
+        # Create dictonary of all ingredients you have 
+        ingredient_have_dict = dict()
+        for ingredient in ingredients:
+            ingredient_dict[ingredient.name] = ingredient.amount
+        # Create dictionary of all the ingredients you need
+        ingredient_need_dict = dict()
+        for order in submitted_orders:
+            if order.item_id.name not in ingredient_need_dict.keys():
+                ingredient_need_dict[ingredient_need_dict] = 1
+            else:
+                ingredient_need_dict[ingredient_need_dict] += 1
+        # Compare the two dictionaries
+        for ingredient_needed in ingredient_need_dict.keys():
+            if ingredient_need_dict[ingredient_needed] > ingredient_have_dict[ingredient_needed]:
+                raise Http404("There are not enough " + ingredient_needed + " so this order cannot be processed")
         
+        # Check that they have enough money
         if user.creditos != None and user.creditos > cart.order_total:
             cart.active = True 
             cart.save()
