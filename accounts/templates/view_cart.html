@@ -11,7 +11,11 @@
     {% for order in orders%}
         <p>
             {{order.item_id.name}}: {{order.quantity}} &emsp;
-            <button type="submit">eliminar</button>
+            <form method="post">
+                {% csrf_token %}
+                <input id="item" name = "item" hidden=True type="text" value="{{order.item_id.name}}"/>
+                <input type="submit" name = "eliminar" value="Eliminar">
+            </form>
         </p>
     {% endfor %}
     <p><b>Total Cost:</b> $ {{cart.order_total}} </p>
@@ -20,7 +24,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit Order</button>
+        <button type="submit" name = "submit_order">Submit Order</button>
     </form>
     
 </div>

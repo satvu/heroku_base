@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import get_user_model
 from .forms import CustomUserCreationForm, EditProfileForm
-from inventory.models import Cart, Orden
+from inventory.models import Cart, Orden, ElementosDelMenu
 from datetime import datetime, timedelta
 
 User = get_user_model()
@@ -40,7 +40,7 @@ def edit_profile(request):
         return render(request, 'edit_profile.html', args)
 
 def view_cart(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and "submit_order" in request.POST:
         user = User.objects.get(username=request.user.username)
         cart = Cart.objects.get(who_id = user)
         
@@ -65,6 +65,28 @@ def view_cart(request):
                                                                 'orders_ahead': orders_ahead})
         else:
             raise Http404("You do not have enough credits to order this. Please order in person at the Container")
+    
+    if request.method == 'POST' and "eliminar" in request.POST:
+        item = str(request.POST.get('item'))
+        # get the current cart of this person 
+        cart = Cart.objects.get(who_id = request.user)
+        order_item = ElementosDelMenu.objects.get(name = item)
+        order = Orden.objects.filter(cart_id = cart.id, item_id = order_item)
+        order.delete()
+        cart.save()
+
+        # to display regular page again
+        user = User.objects.get(username=request.user.username)
+        try:
+            cart = Cart.objects.get(who_id = user.id)
+            orders = list(Orden.objects.filter(cart_id = cart.id))
+
+            return render(request, 'view_cart.html', {'user': user, 'cart': cart, 'orders': orders})
+
+        except: 
+            cart = Cart(who_id = user)
+            cart.save()
+            return render(request, 'view_cart.html', {'user': user, 'cart': cart})
     
     else:
         user = User.objects.get(username=request.user.username)
