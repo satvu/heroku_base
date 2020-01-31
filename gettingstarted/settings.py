@@ -120,5 +120,7 @@ STATIC_URL = "/static/"
 AUTH_USER_MODEL = 'accounts.CustomUser' # new
 django_heroku.settings(locals())
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/accounts/cart'
 LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_HOST
