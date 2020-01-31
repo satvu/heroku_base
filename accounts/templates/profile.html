@@ -14,6 +14,20 @@
     <a href="{% url 'edit_profile' %}">edit your information</a>
     <br>
     <a href="{% url 'logout' %}">logout of {{user}} </a>
+
+    {% if user.is_staff %}
+        <p>
+        </p>
+        <p>
+            <h2>Staff Pages</h2>
+            <a href="{% url 'active_orders' %}">View Active Order</a><br>
+            Agregado Ordenes <br>
+            money tracker? <br>
+            inventory available (link to admin) <br>
+
+        </p>
+    {% endif %}
+
 </div>
 
 {% endblock %}

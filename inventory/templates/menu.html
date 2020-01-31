@@ -20,17 +20,32 @@
 
 
     <h2>Menu</h2>
-        
+    
+    {% if alert_flag %}
+        <script>alert("Added {{item}} to cart!")</script>  
+    {% endif %}
+
     {% for category, food_list in menu_dictionary.items %}
        
         <h4>{{category}}</h4>
       
-        {% for for in food_list%}
-            <p><b>{food.name}}: </b>{{food.price}}</p>
-            <img src="{{food.image}}" width=400 />
+        {% for food in food_list%}
+            <div style="width: 100%;">
+                <img src="{{food.image}}" width=150 height=100 /> 
+                <b>{{food.name}}:</b> ${{food.price}}
+                <form method="post">
+                    {% csrf_token %}
+                    <input id="number" name="number" type="number" value="1"/>
+                    <input id="item" name = "item" hidden=True type="text" value="{{food.name}}"/>
+                    <input type="submit" value="Agregar al Carrito">
+                </form>
+            </div>
+            <hr>
          {% endfor %}
 
     {% endfor %}
+
+    {{item}}
 
 
 </div>

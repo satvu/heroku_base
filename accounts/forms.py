@@ -25,3 +25,4 @@ class EditProfileForm(UserChangeForm):
             'username',
             'email'
         )
+

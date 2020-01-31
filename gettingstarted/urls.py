@@ -22,4 +22,5 @@ urlpatterns = [
     path("menu/", inventory.views.menu, name="menu"),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls')),
+    path('inventory/', include('inventory.urls')),
 ]

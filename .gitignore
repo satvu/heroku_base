@@ -4,5 +4,5 @@ staticfiles
 .env
 db.sqlite3
 getting-started/*
-accounts/migrations
 inventory/migrations
+accounts/migrations

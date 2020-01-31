@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>Cart</title>
+
+{% block content %}
+<div style="margin-left: 10%; margin-right: 10%;">
+    {% if user.is_staff %}
+        {% for cart, orders in carts.items %}
+            <p>
+                <b>{{cart}}'s order </b> <br>
+                Ordered at {{orders.1}}
+                <ul>
+                    {% for order in orders.0 %}
+                    <li>{{order.item_id.name}}: {{order.quantity}}</li>
+                    {% endfor %}
+                </ul>
+                <form method="post">
+                    {% csrf_token %}
+                    <div hidden=true>
+                        <input type="text" id = "user" name="user" value="{{cart}}"/></br>
+                    </div>
+                    <input type="submit" value="Order Finished" /> 
+                </form>
+                <hr>
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>You must be a staff member of the Container to access this page.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>Cart</title>
+
+{% block content %}
+<div style="text-align: center;">
+    <h1>{{user.username}}'s Cart</h1>
+    <a href="{% url 'menu'%}">back to menu</a>
+    <br><br>
+    {% for order in orders%}
+        <p>
+            {{order.item_id.name}}: {{order.quantity}} &emsp;
+            <form method="post">
+                {% csrf_token %}
+                <input id="item" name = "item" hidden=True type="text" value="{{order.item_id.name}}"/>
+                <input type="submit" name = "eliminar" value="Eliminar">
+            </form>
+        </p>
+    {% endfor %}
+    <p><b>Total Cost:</b> $ {{cart.order_total}} </p>
+    <p>(Your available credits are: $ {{user.creditos}})</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name = "submit_order">Submit Order</button>
+    </form>
+    
+</div>
+
+{% endblock %}

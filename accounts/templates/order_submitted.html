@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>Cart</title>
+
+{% block content %}
+<div style="text-align: center;">
+    <h1>{{user.username}}'s Cart</h1>
+    <a href="{% url 'menu'%}">back to menu</a>
+    <p><b>Total Cost:</b> {{cart.order_total}} </p>
+    <p>(Your available credits are now: {{user.creditos}} pesos)</p>
+
+    <p>There are {{orders_ahead}} orders ahead of you. Your order will be ready in about 
+            {{time_estimate}} minutes.
+    </p>
+    
+</div>
+
+{% endblock %}
