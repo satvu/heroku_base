@@ -4,39 +4,38 @@
 {% block content %}
 <meta name ="viewport" content="width=device-width, initial-scale=1">
 <div class="jumbotron text-center">
-  <div class="container"height=400
-  >
-  
     <h1>Mister´s</h1>
     <p>[La mejor comida en el Merici.]</p>
-    <a type="button" class="btn btn-lg btn-default" href="{% url 'menu' %}"><span class="glyphicon glyphicon-flash"></span>ordena aqui</a>
+    <a type="button" class="btn btn-lg btn-default" href="{% url 'menu' %}"><span class="glyphicon glyphicon-flash"></span>ORDENA 
+      AQUÍ</a>
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-info-sign"></span>Misters es una experiencia única, con productos como:  </h3>
-      <ul>
-        <li>waffles</li>
-        <li>panini</li>
-        <li>pizza</li>
-        <li>mira el desempeño de nuestros <a href="https://www.merici.edu.mx/">alumnos</a> !</li>
-      </ul>
+      <h3><span class="glyphicon glyphicon-info-sign"></span>Mister's, una experiencia única en el Merici!
+         </h3>
+      
+
+        <li>mira el desempeño de nuestros <a href="https://www.merici.edu.mx/">alumnos</a> </li>
+
     </div>
     <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-link"></span>dias que esta abierto</h3>
+      <h3><span class="glyphicon glyphicon-link"></span>Horario</h3>
       <p>
-        misters estara abierto los viernes y dias festivos como:
         <ul>
-        {% for holiday in holidays %}
-            <li>{{holiday.name}} - {{holiday.when}}</li>
-        {% endfor %}
+          <li>Jueves durante los recreos de CCH</li>
+          <li>Viernes durante recreo compartido</li>
+          <li>Dias festivos (horario por confirmar)</li>
+          {% for holiday in holidays %}
+              <li>{{holiday.name}} - {{holiday.when}}</li>
+          {% endfor %}
         </ul>
       </p>
     </div>
   </div> <!-- row -->
    <div class="alert alert-info text-center" role="alert">
-     Esta página fue hecha por alumnos de CCH en las generaciones de 2019-2020, con ayuda de alumnos del MIT. 
+     Esta página fue hecha por alumnos de CCH del Colegio Merici de las generaciones 2020, 2021 y 2022, en colaboración con alumnas del Massachusetts Institute of Technology. 
   </div>
 </div>
 {% endblock %}
