@@ -5,8 +5,8 @@ from .models import *
 
 # Create your views here.
 def index(request):
-    holidays = DiasLibre.objects.all()
-    return render(request, "index.html", {"holidays": holidays})
+    Holiday = DiasLibre.objects.all()
+    return render(request, "index.html", {"Holiday": Holiday})
 
 
 def db(request):
