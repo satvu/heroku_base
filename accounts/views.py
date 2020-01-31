@@ -1,11 +1,12 @@
 from django.shortcuts import render
+from django.utils import timezone
 from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import get_user_model
 from .forms import CustomUserCreationForm, EditProfileForm
-from inventory.models import Cart, Orden, ElementosDelMenu
+from inventory.models import Cart, Orden, ElementosDelMenu, Ingrediente
 from datetime import datetime, timedelta
 
 User = get_user_model()
@@ -50,14 +51,15 @@ def view_cart(request):
         # Create dictonary of all ingredients you have 
         ingredient_have_dict = dict()
         for ingredient in ingredients:
-            ingredient_dict[ingredient.name] = ingredient.amount
+            ingredient_have_dict[ingredient.name] = ingredient.amount
         # Create dictionary of all the ingredients you need
         ingredient_need_dict = dict()
         for order in submitted_orders:
-            if order.item_id.name not in ingredient_need_dict.keys():
-                ingredient_need_dict[ingredient_need_dict] = 1
-            else:
-                ingredient_need_dict[ingredient_need_dict] += 1
+            for ing in order.item_id.ingredients.all():
+                if ing.name not in ingredient_need_dict.keys():
+                    ingredient_need_dict[ing.name] = 1
+                else:
+                    ingredient_need_dict[ing.name] += 1
         # Compare the two dictionaries
         for ingredient_needed in ingredient_need_dict.keys():
             if ingredient_need_dict[ingredient_needed] > ingredient_have_dict[ingredient_needed]:
@@ -65,20 +67,21 @@ def view_cart(request):
         
         # Check that they have enough money
         if user.creditos != None and user.creditos > cart.order_total:
-            cart.active = True 
-            cart.save()
             # get the current active carts/order
-            active_carts = Cart.objects.filter(active = True)
+            active_carts = Cart.objects.filter(active = True).order_by('when')
+            orders_ahead = len(active_carts)
+            # set this cart and make it active
+            cart.active = True 
+            user.creditos -= cart.order_total
+            cart.save()
+            user.save()
 
-            # get how old this cart is
-            time_threshold = datetime.now() - cart.when
 
-            # see how many carts are older (time changed ago is greater than time_threshold)
-            orders_ahead = Cart.objects.filter(when__gt= time_threshold)
-            # get a time estimate by adding cart time estimates
+            # estimate using active carts
             time_estimate = 0 
-            for cart in orders_ahead:
+            for cart in active_carts:
                 time_estimate += cart.time_total
+            
 
             return render(request, 'order_submitted.html', {'time_estimate': time_estimate, 'user': user,
                                                                 'cart': cart,

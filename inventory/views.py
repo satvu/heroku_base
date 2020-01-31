@@ -66,10 +66,10 @@ def active_orders(request):
         if request.method == 'POST':
             # set to inactive the cart being deleted and remove orders
             username = request.POST.get('user')
-            user = User.get(username = username)
-            del_cart = Cart.objects.filter(who_id = user)
+            user_customer = CustomUser.objects.get(username = username)
+            del_cart = Cart.objects.get(who_id = user_customer)
             del_cart.active = False 
-            del_orders = list(Order.objects.filter(cart_id = cart.id))
+            del_orders = list(Orden.objects.filter(cart_id = del_cart.id))
 
             for order in del_orders:
                 order.delete()
@@ -77,7 +77,14 @@ def active_orders(request):
             del_cart.save()
 
             # Send an email to the user that their food is ready
-
+            send_mail(
+                '[MISTER\'S] YOUR FOOD IS READY',
+                'Please pick up your order as soon as possible.',
+                user.email,
+                [user_customer.email],
+                fail_silently=False,
+            )
+            
             # return all the carts again
             active_carts = Cart.objects.filter(active = True).order_by('-when')
             cart_orders = dict()

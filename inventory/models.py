@@ -90,7 +90,31 @@ class Orden(models.Model):
         else:
             self.time_to_make = self.item_id.price * self.quantity
             super(Orden, self).save(*args, **kwargs)
-        
+
+# Organize in person orders
+class InPersonOrder(models.Model):
+    items = models.ManyToManyField(ElementosDelMenu)
+    cost = models.DecimalField(decimal_places = 2, max_digits = 6, default = 0.0)
+    time_to_make = models.IntegerField(default = 0)
+    when = models.DateTimeField(auto_now= True)
+
+    def __str__(self):
+        return str(when)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            super(InPersonOrder, self).save(*args, **kwargs)
+        else:
+            total = 0.0 # should be DecimalField not integer or float for prices
+            time = 0
+            for item in self.items:
+                total += (item.quantity * item.item_id.price)
+                time += (item.quantity * item.time_to_make)
+
+            self.cost = total # again this should be changed to DecimalField
+            self.time_total = time
+            super(InPersonOrder, self).save(*args, **kwargs)
+    
 # Holiday, days when the Container is closed
 class DiasLibre(models.Model):
     name = models.CharField(max_length=30)
